@@ -10,11 +10,9 @@ export class UserRole {
   @PrimaryColumn()
   roleId: number;
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   @ManyToOne(() => User, (u) => u.roles, { onDelete: 'CASCADE' })
   user: User;
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   @ManyToOne(() => Role, (r) => r.userRoles, { onDelete: 'CASCADE' })
   role: Role;
 }

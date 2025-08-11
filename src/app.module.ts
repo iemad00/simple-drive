@@ -6,11 +6,15 @@ import { Role } from './roles/role.entity';
 import { UserRole } from './roles/user-role.entity';
 import { Blob } from './blobs/blob.entity';
 import { BlobData } from './blob-data/blob-data.entity';
+import { RedisModule } from './redis/redis.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(typeormOptions),
     TypeOrmModule.forFeature([User, Role, UserRole, Blob, BlobData]),
+    RedisModule,
+    AuthModule,
   ],
 })
 export class AppModule {}

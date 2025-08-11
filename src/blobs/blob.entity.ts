@@ -17,7 +17,6 @@ export class Blob {
   @Column()
   ownerId: string;
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   @ManyToOne(() => User, (u) => u.blobs, { onDelete: 'CASCADE' })
   owner: User;
 
