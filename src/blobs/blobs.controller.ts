@@ -10,11 +10,14 @@ import {
 import { JwtGuard } from '../common/guards/jwt.guard';
 import { User } from '../common/decorators/user.decorator';
 import type { RequestUser } from '../common/types/request-user';
+import { PermGuard } from 'src/common/guards/perm.guard';
+import { RequirePermissions } from 'src/common/decorators/permissions.decorator';
 
-@UseGuards(JwtGuard) // protect all routes in this controller
+@UseGuards(JwtGuard, PermGuard) // protect all routes in this controller
 @Controller('blobs')
 export class BlobsController {
   @Post()
+  @RequirePermissions('blobs:create')
   create(@User() user: RequestUser, @Body() dto: { id: string; data: string }) {
     console.log(dto);
 

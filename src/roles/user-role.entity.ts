@@ -1,18 +1,21 @@
-import { Entity, ManyToOne, PrimaryColumn } from 'typeorm';
+import { Entity, ManyToOne, PrimaryColumn, JoinColumn, Index } from 'typeorm';
 import { User } from '../users/user.entity';
 import { Role } from './role.entity';
 
 @Entity('user_roles')
+@Index(['userId', 'roleId'], { unique: true })
 export class UserRole {
-  @PrimaryColumn()
+  @PrimaryColumn('uuid')
   userId: string;
 
-  @PrimaryColumn()
+  @PrimaryColumn('int')
   roleId: number;
 
-  @ManyToOne(() => User, (u) => u.roles, { onDelete: 'CASCADE' })
+  @ManyToOne(() => User, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'userId' })
   user: User;
 
-  @ManyToOne(() => Role, (r) => r.userRoles, { onDelete: 'CASCADE' })
+  @ManyToOne(() => Role, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'roleId' })
   role: Role;
 }
