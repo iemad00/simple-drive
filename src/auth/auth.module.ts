@@ -26,6 +26,6 @@ import { TokenService } from './token.service';
     { provide: 'OtpStore', useExisting: RedisOtpStore },
     { provide: 'OtpGenerator', useExisting: NumericOtpGenerator },
   ],
-  exports: [AuthService],
+  exports: [AuthService, JwtModule],
 })
 export class AuthModule {}

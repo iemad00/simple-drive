@@ -8,6 +8,7 @@ import { Blob } from './blobs/blob.entity';
 import { BlobData } from './blob-data/blob-data.entity';
 import { RedisModule } from './redis/redis.module';
 import { AuthModule } from './auth/auth.module';
+import { BlobsController } from './blobs/blobs.controller';
 
 @Module({
   imports: [
@@ -16,5 +17,6 @@ import { AuthModule } from './auth/auth.module';
     RedisModule,
     AuthModule,
   ],
+  controllers: [BlobsController],
 })
 export class AppModule {}
