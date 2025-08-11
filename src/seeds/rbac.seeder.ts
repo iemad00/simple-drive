@@ -16,7 +16,7 @@ export async function seedRbac(ds: DataSource) {
   if (!blobMgr)
     blobMgr = await roleRepo.save(roleRepo.create({ name: 'BlobManager' }));
 
-  const permNames = ['blobs:create', 'blobs:read', 'blobs:delete'];
+  const permNames = ['backend:update', 'backend:read'];
   const perms: Permission[] = [];
   for (const name of permNames) {
     let p = await permRepo.findOne({ where: { name } });

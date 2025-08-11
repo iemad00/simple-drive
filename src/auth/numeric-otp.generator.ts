@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { OtpGenerator } from './otp.types';
+import { OtpGenerator } from '../common/types/otp';
 
 @Injectable()
 export class NumericOtpGenerator implements OtpGenerator {

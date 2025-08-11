@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { RedisService } from './redis.service';
-import { OtpStore } from '../auth/otp.types';
+import { OtpStore } from '../common/types/otp';
 
 @Injectable()
 export class RedisOtpStore implements OtpStore {

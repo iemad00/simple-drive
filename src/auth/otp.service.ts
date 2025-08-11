@@ -4,7 +4,7 @@ import {
   UnauthorizedException,
   Inject,
 } from '@nestjs/common';
-import type { OtpGenerator, OtpStore } from './otp.types';
+import type { OtpGenerator, OtpStore } from '../common/types/otp';
 
 @Injectable()
 export class OtpService {

@@ -9,14 +9,25 @@ import { BlobData } from './blob-data/blob-data.entity';
 import { RedisModule } from './redis/redis.module';
 import { AuthModule } from './auth/auth.module';
 import { BlobsController } from './blobs/blobs.controller';
+import { BackendService } from './backend/backend.service';
+import { StorageConfig } from './backend/storage-config.entity';
+import { BackendController } from './backend/backend.controller';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(typeormOptions),
-    TypeOrmModule.forFeature([User, Role, UserRole, Blob, BlobData]),
+    TypeOrmModule.forFeature([
+      User,
+      Role,
+      UserRole,
+      Blob,
+      BlobData,
+      StorageConfig,
+    ]),
     RedisModule,
     AuthModule,
   ],
-  controllers: [BlobsController],
+  controllers: [BlobsController, BackendController],
+  providers: [BackendService],
 })
 export class AppModule {}

@@ -24,7 +24,7 @@ export class Blob {
   size: number;
 
   @Column()
-  backend: string; // 'fs' | 'db' | 's3' | 'ftp'
+  backend: 'fs' | 'db' | 's3' | 'ftp';
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
