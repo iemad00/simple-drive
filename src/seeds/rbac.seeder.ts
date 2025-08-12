@@ -12,9 +12,13 @@ export async function seedRbac(ds: DataSource) {
   const userRepo = ds.getRepository(User);
   const userRoleRepo = ds.getRepository(UserRole);
 
-  let blobMgr = await roleRepo.findOne({ where: { name: 'BlobManager' } });
-  if (!blobMgr)
-    blobMgr = await roleRepo.save(roleRepo.create({ name: 'BlobManager' }));
+  let backendMgr = await roleRepo.findOne({
+    where: { name: 'BackendManager' },
+  });
+  if (!backendMgr)
+    backendMgr = await roleRepo.save(
+      roleRepo.create({ name: 'BackendManager' }),
+    );
 
   const permNames = ['backend:update', 'backend:read'];
   const perms: Permission[] = [];
@@ -26,11 +30,11 @@ export async function seedRbac(ds: DataSource) {
 
   for (const p of perms) {
     const exists = await rolePermRepo.findOne({
-      where: { roleId: blobMgr.id, permissionId: p.id },
+      where: { roleId: backendMgr.id, permissionId: p.id },
     });
     if (!exists)
       await rolePermRepo.save(
-        rolePermRepo.create({ roleId: blobMgr.id, permissionId: p.id }),
+        rolePermRepo.create({ roleId: backendMgr.id, permissionId: p.id }),
       );
   }
 
@@ -39,12 +43,12 @@ export async function seedRbac(ds: DataSource) {
     user = await userRepo.save(userRepo.create({ phone: '0542306039' }));
 
   const link = await userRoleRepo.findOne({
-    where: { userId: user.id, roleId: blobMgr.id },
+    where: { userId: user.id, roleId: backendMgr.id },
   });
   if (!link)
     await userRoleRepo.save(
-      userRoleRepo.create({ userId: user.id, roleId: blobMgr.id }),
+      userRoleRepo.create({ userId: user.id, roleId: backendMgr.id }),
     );
 
-  console.log('✅ BlobManager + permissions seeded and assigned to 0542306039');
+  console.log('BackendManager + permissions seeded and assigned to 0542306039');
 }

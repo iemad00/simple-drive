@@ -18,5 +18,19 @@ services:
     ports:
       - '6379:6379'
     command: ['redis-server', '--appendonly', 'yes']
+  ftp:
+    image: delfer/alpine-ftp-server
+    container_name: simpledrive-ftp
+    restart: unless-stopped
+    ports:
+      - '21:21'
+      - '30000-30009:30000-30009'
+    environment:
+      USERS: 'ftpuser|ftppass'
+      ADDRESS: 'host.docker.internal' # macOS
+      MIN_PORT: 30000
+      MAX_PORT: 30009
+    volumes:
+      - ./ftp-data:/ftp/ftpuser
 volumes:
   db_data:
