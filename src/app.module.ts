@@ -12,6 +12,8 @@ import { BlobsController } from './blobs/blobs.controller';
 import { BackendService } from './backend/backend.service';
 import { StorageConfig } from './backend/storage-config.entity';
 import { BackendController } from './backend/backend.controller';
+import { BlobsService } from './blobs/blobs.service';
+import { StorageModule } from './storage/storage.module';
 
 @Module({
   imports: [
@@ -26,8 +28,9 @@ import { BackendController } from './backend/backend.controller';
     ]),
     RedisModule,
     AuthModule,
+    StorageModule,
   ],
   controllers: [BlobsController, BackendController],
-  providers: [BackendService],
+  providers: [BackendService, BlobsService],
 })
 export class AppModule {}
