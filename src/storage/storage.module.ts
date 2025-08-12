@@ -1,4 +1,3 @@
-// src/storage/storage.module.ts
 import { Module } from '@nestjs/common';
 import { TypeOrmModule, getRepositoryToken } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -26,7 +25,15 @@ import { BACKENDS } from './storage.tokens';
     {
       provide: 'BACKEND_S3',
       inject: [ConfigService],
-      useFactory: (cfg: ConfigService) => new S3HttpBackend(),
+      useFactory: (cfg: ConfigService) =>
+        new S3HttpBackend(
+          cfg.getOrThrow('S3_ENDPOINT'),
+          cfg.get('S3_REGION', 'us-east-1'),
+          cfg.getOrThrow('S3_BUCKET'),
+          cfg.getOrThrow('S3_ACCESS_KEY'),
+          cfg.getOrThrow('S3_SECRET_KEY'),
+          cfg.get('S3_SESSION_TOKEN'),
+        ),
     },
     // Registry (map)
     {
