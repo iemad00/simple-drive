@@ -79,11 +79,11 @@ export class BlobsService {
         `Backend ${meta.backend} not available`,
       );
 
-    const bytes = await backend.get(id);
+    const base64 = await backend.get(id);
 
     return {
       id: meta.id,
-      data: bytes,
+      data: base64,
       size: meta.size,
       createdAt: meta.createdAt,
     };
