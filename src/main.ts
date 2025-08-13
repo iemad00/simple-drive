@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { VersioningType } from '@nestjs/common';
+import { GlobalHttpExceptionFilter } from './common/filters/http-exception.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -10,6 +11,8 @@ async function bootstrap() {
     type: VersioningType.URI, // URL-based versioning (/v1/...)
     defaultVersion: '1',
   });
+
+  app.useGlobalFilters(new GlobalHttpExceptionFilter());
 
   await app.listen(process.env.PORT ?? 3000);
 }
